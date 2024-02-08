@@ -34,7 +34,7 @@ const alphabets = [
 
 // firstly we create class that helps to create multiple cells
 class Cell {
-    constructor(isHeader, disabled, data, row, rowName, column,columnName, active= false){
+    constructor(isHeader, disabled, data, row, column, rowName,columnName, active= false){
         this.isHeader = isHeader
         this.disabled = disabled
         this.data = data
@@ -45,6 +45,8 @@ class Cell {
         this.active = active
     }
 }
+
+
 
 initSpreadsheet()
 
@@ -114,7 +116,7 @@ function createCellEl(cell){
     }
 
     cellEl.onclick = () => handleCellClick(cell)
-    cellEl.onchange = () => handleOnChange(e.target.value, cell)
+    cellEl.onchange = (e) => handleOnChange(e.target.value, cell)
     return cellEl
 
 }
@@ -125,6 +127,7 @@ function handleCellClick(cell){
     const rowHeader = spreadsheet[cell.row][0]
     const columnHeaderEl = getElFromRowCol(columnHeader.row, columnHeader.column)
     const rowHeaderEl = getElFromRowCol(rowHeader.row, rowHeader.column)
+    console.log("check values when we click on cell",cell)
     columnHeaderEl.classList.add("active")
     rowHeaderEl.classList.add("active")
     document.querySelector("#cell-status").innerHTML = cell.columnName + "" + cell.rowName
@@ -150,6 +153,29 @@ function clearHeaderActiveStates() {
 
 function getElFromRowCol(row, col) {
     return document.querySelector("#cell_" + row + col)
+}
+
+// download file 
+
+exportBtn.onclick = function (e) {
+    let csv = ""
+    for (let i = 0; i < spreadsheet.length; i++) {
+        console.log("check values for excel download")
+        csv +=
+            spreadsheet[i]
+                .filter((item) => !item.isHeader)
+                .map((item) => item.data)
+                .join(",") + "\r\n"
+    }
+
+    const csvObj = new Blob([csv])
+    const csvUrl = URL.createObjectURL(csvObj)
+    console.log("csv", csvUrl)
+
+    const a = document.createElement("a")
+    a.href = csvUrl
+    a.download = "Exported Spreadsheet.csv"
+    a.click()
 }
 
 

@@ -8,8 +8,14 @@
 </head>
 <body>
     <h1>Excel Sheet</h1>
-    <button id="export-btn">Export Spreadsheet</button>
-    <div>Cell: <span id="cell-status"></span></div>
+    <div class="cell-headers">
+        <div class="cell-address">
+            <div>Cell: <span id="cell-status"></span></div>
+        </div>
+        <div>
+            <button id="export-btn">Export Spreadsheet</button>
+        </div>
+    </div>
     <div id="spreadsheet-container"></div>
     <script src="script.js"></script>
 </body>

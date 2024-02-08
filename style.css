@@ -1,6 +1,13 @@
 .cell-row {
     display: flex;
 }
+.cell-headers{
+    display: flex;
+    justify-content: space-between;
+}
+.cell-address{
+    margin-top: 10px;
+}
 .cell {
     width: 80px;
     border: 1px solid #555;
@@ -13,12 +20,12 @@
     background: #ddd;
 }
 .cell.header.active {
-    background: rgb(96, 170, 245);
+    background: rgb(25, 139, 252);
     color: white;
 }
 .cell:focus {
     background: #ddd;
-    border: 3px solid rgb(177, 187, 197);
+    border: 3px solid rgb(13, 14, 14);
 }
 #export-btn {
     background: green;
